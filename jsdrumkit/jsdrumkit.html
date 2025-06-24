@@ -38,18 +38,45 @@
            <span class="sound">tink</span>
         </div>
     </div>
-      <audio data-key="65" src="./jsdrumkit/clap.wav"></audio>
-    <audio data-key="83" src="./jsdrumkit/hihat.wav"></audio>
-    <audio data-key="68" src="./jsdrumkit/kick.wav"></audio>
-    <audio data-key="70" src="./jsdrumkit/openhat.wav"></audio>
-    <audio data-key="71" src="./jsdrumkit/boom.wav"></audio>
-    <audio data-key="72" src="./jsdrumkit/ride.wav"></audio>
-    <audio data-key="74" src="./jsdrumkit/snare.wav"></audio>
-    <audio data-key="75" src="./jsdrumkit/tom.wa"></audio>
-    <audio data-key="76" src="./jsdrumkit/tink.wav"></audio>
+      <audio data-key="65" src="./sharp-clap-329723.mp3"></audio>
+    <audio data-key="83" src="./hihat.mp3"></audio>
+    <audio data-key="68" src="./kick-drum-263837.mp3"></audio>
+    <audio data-key="70" src="./openhat-164697.mp3"></audio>
+    <audio data-key="71" src="./impact-cinematic-boom-5-352465.mp3"></audio>
+    <audio data-key="72" src="./long-ride-cymbal-2-36337.mp3"></audio>
+    <audio data-key="74" src="./tr808-snare-drum-241403.mp3"></audio>
+    <audio data-key="75" src="./tom-0104-107508.mp3"></audio>
+    <audio data-key="76" src="./13-golpes-casco-98954.mp3"></audio>
 
     <script>
-       
+        function playSound(e){      //e->event 
+            //console.log(e); // shows keyboard event when pressed
+            const audio= document.querySelector(`audio[data-key="${e.keyCode}"]`);
+            const key= document.querySelector(`.key[data-key="${e.keyCode}"]`);
+            
+            // console.log(audio);
+            if(!audio) return;//stop the function form running all together
+            audio.currentTime=0//rewind to start
+            audio.play();
+            key.classList.add('playing');
+               
+        }
+         // setTimeout(function() {
+                // key.classList.remove('playing');                
+                // }, 500);
+            // alternate method:
+        function removeTransition(e){
+            if(e.propertyName!=='transform') return;//skip if it is not a transform
+            //since transitionend is fired for every change in playing
+            //hence selecting only for transform
+            this.classList.remove('playing');
+        }
+        const keys=document.querySelectorAll('.key');
+        keys.forEach(key=>key.addEventListener('transitionend',removeTransition));//adding event listener for every key
+        //transitionend a DOM event fires when css transion ends
+        // removeTransition function called when above event occurs
+        window.addEventListener('keydown',playSound);
+
     </script>
 </body>
 </html>
