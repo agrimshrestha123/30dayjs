@@ -7,14 +7,38 @@
     <link rel="stylesheet" href="clock.css">
 </head>
 <body>
-    <center><h1>clock</h1></center>
+    <h1>a clock</h1>
     
     <div class="clock">
         <div class="clockFace">
             <div class="hand HourHand"></div>
             <div class="hand MinHand"></div>
-            <div class="hand SecHand"></div>
+            <div class="hand SecHand" ></div>
         </div>
     </div>
 </body>
 </html>
+<script>
+    const hourhand=document.querySelector('.HourHand');//pulling SecHand div from html into script
+    const minutehand=document.querySelector('.MinHand');//pulling SecHand div from html into script
+    const secondhand=document.querySelector('.SecHand');//pulling SecHand div from html into script
+    function setDate(){
+        const now = new Date();
+        const hour=now.getHours();
+        const minute=now.getMinutes();
+        const seconds=now.getSeconds();
+        const hoursDegrees=((hour/12)*360)+90;//turing hour into degrees and adding 90 because we initially rotated hour by 90 deg
+        const minutesDegrees=((minute/60)*360)+90;
+        const secondsDegrees=((seconds/60)*360)+90;// now turning seconds into degrees
+        hourhand.style.transform=`rotate(${hoursDegrees}deg)`;//making the clocks needle rotate with respect to their degree values
+        minutehand.style.transform=`rotate(${minutesDegrees}deg)`;//using `` to insert css
+        secondhand.style.transform=`rotate(${secondsDegrees}deg)`;//using ${} to access js variable inside css which only works inside backticks i.e ``
+        
+        // console.log(hour); //=>checking for hour
+        console.log(minutesDegrees); //=>checking for minute
+        // console.log(seconds); //=>checking for seconds
+
+
+    }
+    setInterval(setDate, 1000);
+</script>
