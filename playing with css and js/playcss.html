@@ -20,6 +20,20 @@
         <img src="https://images.unsplash.com/photo-1751104486292-e35ffb54b336?w=1000&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwzfHx8ZW58MHx8fHx8">
     </div>
     <style>
+        
+        :root{/*setting default values  */
+            --base: #4400ff;
+            --spacing: 10px;/*making/initializing a variable using "--" in css*/
+            --blur: 10px;
+        }
+        img{
+            padding: var(--spacing);
+            background: var(--base);
+            filter: blur(var(--blur));
+        }
+        .hl{
+            color: var(--base);
+        }
         body{
             text-align: center;
             background: linear-gradient(black,white);
@@ -35,5 +49,16 @@
             width: 100px;
         }
     </style>
+    <script>
+        const inputs=document.querySelectorAll('.controls input');
+        function handleUpdate(){
+            // console.log(this.dataset);
+            const suffix=this.dataset.sizing || ''; //pulling the px from spacing and blur or nothing form base color
+            // this.name is the name of the variables spaing,blur and base
+            document.documentElement.style.setProperty(`--${this.name}`,this.value+suffix);
+        }
+        inputs.forEach(input => input.addEventListener('change',handleUpdate));
+        inputs.forEach(input => input.addEventListener('mousemove',handleUpdate));
+    </script>
 </body>
 </html>
